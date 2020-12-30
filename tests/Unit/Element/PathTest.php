@@ -10,23 +10,14 @@ use DTL\ConsoleCanvas\Stroke\Char;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
-class PathTest extends TestCase
+class PathTest extends ElementTestCase
 {
     /**
      * @dataProvider provideRender
      */
     public function testRender(Path $path, string $expected): void
     {
-        $canvas = Canvas::fromTextDimensions($expected);
-        $brush = Brush::default()->withStroke(new Char('x'));
-        $path->render($brush, $canvas);
-        $expected = str_replace('.', ' ', $expected);
-
-        $rendered = $canvas->render();
-
-        // temporarily strip ANSI codes until palette is implemented
-        $rendered = preg_replace('#\\x1b[[][^A-Za-z]*[A-Za-z]#', '', $rendered);
-        self::assertCanvas($expected, $rendered);
+        self::assertCanvas($expected, $path);
     }
 
     /**
@@ -106,17 +97,5 @@ xxxxx
 .....
 EOT
         ];
-    }
-
-    private static function assertCanvas(string $expected, string $rendered): void
-    {
-        if ($expected !== $rendered) {
-            self::fail(sprintf(
-                "Actual:\n---\n%s\n----\ndid not match expected:\n----\n%s\n----",
-                $rendered,
-                $expected,
-            ));
-        }
-        self::assertEquals($expected, $rendered);
     }
 }

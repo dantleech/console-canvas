@@ -40,6 +40,14 @@ final class ElementMetadata
         $this->position = $closure($this->position);
     }
 
+    /**
+     * @param Closure(Element): Element $closure
+     */
+    public function updateElement(Closure $closure): void
+    {
+        $this->element = $closure($this->element);
+    }
+
     public function setColor(Color $color): void
     {
         $this->color = $color;
