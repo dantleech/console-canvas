@@ -2,7 +2,9 @@
 
 namespace DTL\ConsoleCanvas;
 
+use DTL\ConsoleCanvas\Brush;
+
 interface Element
 {
-    public function render(Canvas $canvas): void;
+    public function render(Brush $stroke, Canvas $canvas): void;
 }

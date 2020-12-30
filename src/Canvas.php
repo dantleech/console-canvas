@@ -2,6 +2,8 @@
 
 namespace DTL\ConsoleCanvas;
 
+use DTL\ConsoleCanvas\Brush;
+
 class Canvas
 {
     /**
@@ -13,17 +15,16 @@ class Canvas
     {
     }
 
-    public function paint(Position $position, Brush $brush, Color $color = null)
+    public function paint(Position $position, Brush $stroke): void
     {
-        $color = $color ?? Color::none();
-        $this->grid[(int)round($position->y())][(int)round($position->x())] = new Cell($brush->render(), $color);
+        $this->grid[(int)round($position->y())][(int)round($position->x())] = new Cell($stroke->render(), $stroke->color());
     }
 
     public function mergeAt(Position $position, Canvas $canvas): void
     {
         foreach ($canvas->grid as $y => $row) {
-            foreach ($row as $x => $char) {
-                $this->grid[$y + $position->y()][$x + $position->x()] = $char;
+            foreach ($row as $x => $cell) {
+                $this->grid[(int)($y + $position->y())][(int)($x + $position->x())] = $cell;
             }
         }
     }

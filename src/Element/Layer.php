@@ -6,8 +6,9 @@ use DTL\ConsoleCanvas\Canvas;
 use DTL\ConsoleCanvas\Element;
 use DTL\ConsoleCanvas\ElementMetadata;
 use DTL\ConsoleCanvas\Position;
+use DTL\ConsoleCanvas\Brush;
 
-final class Container implements Element
+final class Layer implements Element
 {
     /**
      * @var array<string, ElementMetadata>
@@ -23,16 +24,19 @@ final class Container implements Element
         $this->elements[spl_object_hash($element)] = new ElementMetadata($element, $position);
     }
 
-    public function render(Canvas $canvas): void
+    public function render(Brush $stroke, Canvas $canvas): void
     {
         foreach ($this->elements as $metadata) {
             $childCanvas = new Canvas($this->width, $this->height);
-            $metadata->element()->render($childCanvas);
+            $metadata->element()->render(
+                $stroke->withColor($metadata->color()),
+                $childCanvas
+            );
             $canvas->mergeAt($metadata->position(), $childCanvas);
         }
     }
 
-    public function get(Element $circle): ElementMetadata
+    public function meta(Element $circle): ElementMetadata
     {
         return $this->elements[spl_object_hash($circle)];
     }

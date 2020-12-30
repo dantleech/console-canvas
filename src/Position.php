@@ -8,9 +8,14 @@ final class Position
     {
     }
 
-    public function scaleY(float $scale): self
+    public function withX(float $x): self
     {
-        return new self($this->x, $this->y * $scale);
+        return new self($x, $this->y);
+    }
+
+    public function withY(float $y): self
+    {
+        return new self($this->x, $y);
     }
 
     public function x(): float
