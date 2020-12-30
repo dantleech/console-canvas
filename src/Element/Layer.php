@@ -24,12 +24,12 @@ final class Layer implements Element
         $this->elements[spl_object_hash($element)] = new ElementMetadata($element, $position);
     }
 
-    public function render(Brush $stroke, Canvas $canvas): void
+    public function render(Brush $brush, Canvas $canvas): void
     {
         foreach ($this->elements as $metadata) {
             $childCanvas = new Canvas($this->width, $this->height);
             $metadata->element()->render(
-                $stroke->withColor($metadata->color()),
+                $brush->withColor($metadata->color())->withStroke($metadata->stroke()),
                 $childCanvas
             );
             $canvas->mergeAt($metadata->position(), $childCanvas);

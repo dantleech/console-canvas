@@ -11,6 +11,8 @@ class Canvas
      */
     private $grid = [];
 
+    private bool $needsReset = false;
+
     public function __construct(private int $width, private int $height)
     {
     }
@@ -32,6 +34,10 @@ class Canvas
     public function render(): string
     {
         $output = [];
+        if ($this->needsReset) {
+            $output[] = "\x1b[" . $this->height . "A";
+        }
+
         $currentColor = null;
         for ($y = 0; $y < $this->height; $y++) {
             $line = '';
@@ -55,7 +61,7 @@ class Canvas
             $output[] = $line;
         }
 
-        $output[] = "\x1b[" . $this->height . "A";
+        $this->needsReset = true;
 
         return implode("\n", $output);
     }

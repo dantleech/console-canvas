@@ -11,8 +11,9 @@ use DTL\ConsoleCanvas\Element\Layer;
 use DTL\ConsoleCanvas\Element\Text;
 use DTL\ConsoleCanvas\Position;
 use DTL\ConsoleCanvas\Brush;
+use DTL\ConsoleCanvas\Stroke\Line;
 
-$canvas = new Canvas(width: 100, height: 20);
+$canvas = new Canvas(width: 100, height: 25);
 $circle = new Circle(radius: 10);
 $box1 = new Box(size: 30);
 $box2 = new Box(size: 10);
@@ -28,8 +29,12 @@ $container->addAt(new Position(7, 10), $text);
 $container->meta($box1)->setColor(Color::red());
 $container->meta($box2)->setColor(Color::green());
 $container->meta($circle)->setColor(Color::yellow());
+$container->meta($circle)->setStroke(new Line());
 $brush = Brush::default();
 
+$container->render($brush, $canvas);
+echo($canvas->render());
+exit(1);
 $sleep = 40_000;
 while (true) {
     for ($x = 0; $x < 50; $x++) {
