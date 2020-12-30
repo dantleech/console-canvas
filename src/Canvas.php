@@ -13,20 +13,23 @@ class Canvas
 
     private bool $needsReset = false;
 
-    public function __construct(private int $width, private int $height)
+    public function __construct(private int $width, private int $height, private float $scaleY = 1.0, private float $scaleX = 1.0)
     {
     }
 
     public function paint(Position $position, Brush $stroke): void
     {
-        $this->grid[(int)round($position->y())][(int)round($position->x())] = new Cell($stroke->render(), $stroke->color());
+        $this->putCell($position, new Cell($stroke->render(), $stroke->color()));
     }
 
     public function mergeAt(Position $position, Canvas $canvas): void
     {
         foreach ($canvas->grid as $y => $row) {
             foreach ($row as $x => $cell) {
-                $this->grid[(int)($y + $position->y())][(int)($x + $position->x())] = $cell;
+                $this->putCell(
+                    $position->withX($position->x() + $x)->withY($position->y() + $y),
+                    $cell
+                );
             }
         }
     }
@@ -69,5 +72,10 @@ class Canvas
     public function clear(): void
     {
         $this->grid = [];
+    }
+
+    private function putCell(Position $position, Cell $cell): void
+    {
+        $this->grid[(int)round($position->y() * $this->scaleY)][(int)round($position->x() * $this->scaleX)] = $cell;
     }
 }

@@ -13,7 +13,7 @@ use DTL\ConsoleCanvas\Position;
 use DTL\ConsoleCanvas\Brush;
 use DTL\ConsoleCanvas\Stroke\Line;
 
-$canvas = new Canvas(width: 100, height: 25);
+$canvas = new Canvas(width: 100, height: 25, scaleY: 0.5);
 $circle = new Circle(radius: 10);
 $box1 = new Box(size: 30);
 $box2 = new Box(size: 10);
@@ -33,8 +33,6 @@ $container->meta($circle)->setStroke(new Line());
 $brush = Brush::default();
 
 $container->render($brush, $canvas);
-echo($canvas->render());
-exit(1);
 $sleep = 40_000;
 while (true) {
     for ($x = 0; $x < 50; $x++) {
