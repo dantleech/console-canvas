@@ -6,5 +6,5 @@ use DTL\ConsoleCanvas\Brush;
 
 interface Element
 {
-    public function render(Brush $stroke, Canvas $canvas): void;
+    public function render(Brush $brush, Canvas $canvas): void;
 }

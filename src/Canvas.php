@@ -13,7 +13,12 @@ class Canvas
 
     private bool $needsReset = false;
 
-    public function __construct(private int $width, private int $height, private float $scaleY = 1.0, private float $scaleX = 1.0)
+    public function __construct(
+        private int $width,
+        private int $height,
+        private float $scaleY = 1.0,
+        private float $scaleX = 1.0
+    )
     {
     }
 
@@ -77,5 +82,18 @@ class Canvas
     private function putCell(Position $position, Cell $cell): void
     {
         $this->grid[(int)round($position->y() * $this->scaleY)][(int)round($position->x() * $this->scaleX)] = $cell;
+    }
+
+    public static function fromTextDimensions(string $expected): self
+    {
+        $lines = explode("\n", $expected);
+        $length = 0;
+        foreach ($lines as $line) {
+            if (($lineLength = mb_strlen($line)) > $length) {
+                $length = $lineLength;
+            }
+        }
+
+        return new self($length, count($lines));
     }
 }

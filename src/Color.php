@@ -52,4 +52,9 @@ final class Color
     {
         return new self("\x1b[0m");
     }
+
+    public static function reset(): self
+    {
+        return new self("\x1b[0m");
+    }
 }
