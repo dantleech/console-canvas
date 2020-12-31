@@ -12,9 +12,19 @@ final class Brush
         private Color $color,
         private float $angle = 0,
         private ?Stroke $stroke = null,
-        private bool $intersection = false
+        private bool $intersection = false,
+        private ?Brush $fill = null
     )
     {
+    }
+
+    public function fill(): self
+    {
+        if (null === $this->fill) {
+            return $this;
+        }
+
+        return $this->fill;
     }
 
     public static function default(): self
@@ -34,7 +44,7 @@ final class Brush
 
     public function render(): string
     {
-        return $this->stroke()->paint(new StrokeProperties(
+        return $this->asStroke()->paint(new StrokeProperties(
             angle: $this->angle,
             intersection: $this->intersection
         ));
@@ -64,6 +74,14 @@ final class Brush
         return $new;
     }
 
+    public function withFill(Brush $brush): self
+    {
+        $new = clone $this;
+        $new->fill = $brush;
+
+        return $new;
+    }
+
     public function asIntersection(): self
     {
         $new = clone $this;
@@ -71,7 +89,7 @@ final class Brush
         return $new;
     }
 
-    private function stroke(): Stroke
+    private function asStroke(): Stroke
     {
         return $this->stroke ?: new Block();
     }

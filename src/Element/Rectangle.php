@@ -45,7 +45,7 @@ final class Rectangle implements Element
 
         for ($y = 1; $y < $this->height; $y++) {
             $line = new Line(new Position(1, $y), new Position($this->width - 1, $y));
-            $line->render($brush, $canvas);
+            $line->render($brush->fill(), $canvas);
         }
     }
 

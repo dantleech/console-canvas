@@ -6,6 +6,7 @@ use DTL\ConsoleCanvas\Brush;
 use DTL\ConsoleCanvas\Canvas;
 use DTL\ConsoleCanvas\Element;
 use DTL\ConsoleCanvas\Stroke;
+use DTL\ConsoleCanvas\Stroke\Char;
 use PHPUnit\Framework\TestCase;
 
 class ElementTestCase extends TestCase

@@ -62,7 +62,7 @@ EOT
 
         yield 'filled rectangle with fill brush' => [
             new Rectangle(width: 10, height: 2, fill: true),
-            Brush::default()->withStroke(new Line()),
+            Brush::default()->withStroke(new Line())->withFill(Brush::default()),
             <<<EOT
 ┌─────────┐
 │█████████│
