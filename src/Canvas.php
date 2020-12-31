@@ -22,9 +22,9 @@ class Canvas
     {
     }
 
-    public function paint(Position $position, Brush $stroke): void
+    public function paint(Position $position, Brush $brush): void
     {
-        $this->putCell($position, new Cell($stroke->render(), $stroke->color()));
+        $this->putCell($position, new Cell($brush->render(), $brush->color()));
     }
 
     public function mergeAt(Position $position, Canvas $canvas): void

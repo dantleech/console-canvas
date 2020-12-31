@@ -8,7 +8,12 @@ use DTL\ConsoleCanvas\Stroke;
 
 final class Brush
 {
-    public function __construct(private Color $color, private float $angle = 0, private ?Stroke $stroke = null)
+    public function __construct(
+        private Color $color,
+        private float $angle = 0,
+        private ?Stroke $stroke = null,
+        private bool $intersection = false
+    )
     {
     }
 
@@ -29,7 +34,10 @@ final class Brush
 
     public function render(): string
     {
-        return $this->stroke()->paint(new StrokeProperties($this->angle));
+        return $this->stroke()->paint(new StrokeProperties(
+            angle: $this->angle,
+            intersection: $this->intersection
+        ));
     }
 
     public function withStroke(Stroke $stroke): self
@@ -53,6 +61,13 @@ final class Brush
         $new = clone $this;
         $new->angle = $degrees;
 
+        return $new;
+    }
+
+    public function asIntersection(): self
+    {
+        $new = clone $this;
+        $new->intersection = true;
         return $new;
     }
 

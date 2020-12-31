@@ -17,7 +17,7 @@ use DTL\ConsoleCanvas\Stroke\Line;
 
 $canvas = new Canvas(width: 120, height: 25, scaleY: 0.5);
 
-$layer = new Container(20, 30);
+$layer = new Container(100, 30);
 $wave = fn(int $offset, int $scale = 10) => array_map(
     fn (float $radian) => sin($radian % 360) * $scale,
     range($offset, $offset + 359)

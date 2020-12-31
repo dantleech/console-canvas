@@ -9,7 +9,11 @@ use DTL\ConsoleCanvas\Position;
 
 class Line implements Element
 {
-    public function __construct(private Position $start, private Position $end, private int $density = 10)
+    public function __construct(
+        private Position $start,
+        private Position $end,
+        private int $density = 10
+    )
     {
     }
 
@@ -20,15 +24,18 @@ class Line implements Element
 
         $lastX = null;
         $lastY = null;
+
+        $angle = -atan2(
+            $this->end->y() - $this->start->y(),
+            $this->end->x() - $this->start->x()
+        ) * 180 / M_PI;
+
+        $brush = $brush->withAngle($angle);
+
         foreach ($xSeries as $index => $x) {
             $y = $ySeries[$index];
-            if ($lastY && $lastX) {
-                $angle = -atan2($y - $lastY, $x - $lastX) * 180 / M_PI;
-                $brush = $brush->withAngle($angle);
-            }
+
             $canvas->paint(new Position($x, $y), $brush);
-            $lastY = $y;
-            $lastX = $x;
         }
     }
 
