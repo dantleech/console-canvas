@@ -9,6 +9,6 @@ final class Block implements Stroke
 {
     public function paint(StrokeProperties $properties): string
     {
-        return '▪';
+        return '█';
     }
 }

@@ -8,7 +8,7 @@ use DTL\ConsoleCanvas\ElementMetadata;
 use DTL\ConsoleCanvas\Position;
 use DTL\ConsoleCanvas\Brush;
 
-final class Layer implements Element
+final class Container implements Element
 {
     /**
      * @var array<string, ElementMetadata>

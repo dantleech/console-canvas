@@ -11,7 +11,7 @@ final class Line implements Stroke
         '/',
         '|',
         '\\',
-        '-',
+        '―'
     ];
 
     public function paint(StrokeProperties $properties): string
@@ -23,8 +23,5 @@ final class Line implements Stroke
         $offset = intval($angle / (360 / 8));
 
         return self::CHARS[$offset % 4];
-
-        return '-';
-
     }
 }

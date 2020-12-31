@@ -5,6 +5,7 @@ namespace DTL\ConsoleCanvas\Tests\Unit\Element;
 use DTL\ConsoleCanvas\Brush;
 use DTL\ConsoleCanvas\Canvas;
 use DTL\ConsoleCanvas\Element\Path;
+use DTL\ConsoleCanvas\Positions;
 use DTL\ConsoleCanvas\Stroke;
 use DTL\ConsoleCanvas\Stroke\Char;
 use Generator;
@@ -26,15 +27,15 @@ class PathTest extends ElementTestCase
     public function provideRender(): Generator
     {
         yield [
-            Path::fromPairs([
+            new Path(Positions::fromPairs([
                 [ 0, 0 ], [ 10, 0 ]
-            ]),
+            ])),
             'xxxxxxxxxx'
         ];
         yield [
-            Path::fromPairs([
+            new Path(Positions::fromPairs([
                 [ 0, 0 ], [ 0, 4 ]
-            ]),
+            ])),
             <<<EOT
 x
 x
@@ -43,58 +44,44 @@ x
 EOT
         ];
         yield 'diagnonal' => [
-            Path::fromPairs([
+            new Path(Positions::fromPairs([
                 [ 0, 0 ], [ 4, 4 ]
-            ]),
+            ])),
             <<<EOT
 x....
- x...
-  x..
-   x.
-    x
+.x...
+..x..
+...x.
+....x
 EOT
         ];
-        yield 'multiple points 1' => [
-            Path::fromPairs([
-                [ 0, 0 ], [ 4, 4 ],
+        yield 'triangle' => [
+            new Path(Positions::fromPairs([
+                [ 0, 0 ], [ 3, 0 ], [ 3, 3 ], [ 0, 0 ]
 
-                [ 0, 4 ], [ 4, 4 ],
-            ]),
+            ])),
             <<<EOT
-x....
- x...
-  x..
-   x.
-xxxxx
-EOT
-        ];
-
-        yield 'multiple points 2' => [
-            Path::fromPairs([
-                [ 0, 0 ], [ 4, 4 ],
-
-                [ 0, 4 ], [ 4, 4 ],
-                [ 0, 0 ], [ 0, 4 ],
-            ]),
-            <<<EOT
-x....
-xx...
-x x..
-x  x.
-xxxxx
+xxxx.
+.x.x.
+..xx.
+...x.
 EOT
         ];
 
-        yield 'out of range' => [
-            Path::fromPairs([
-                [ -5, 1 ], [ 4, 1 ],
-            ]),
+        yield 'box' => [
+            new Path(Positions::fromPairs([
+                [ 0, 0 ],
+                [ 0, 4 ],
+                [ 4, 4 ],
+                [ 4, 0 ],
+                [ 0, 0 ],
+            ]),),
             <<<EOT
-.....
 xxxxx
-.....
-.....
-.....
+x...x
+x...x
+x...x
+xxxxx
 EOT
         ];
     }

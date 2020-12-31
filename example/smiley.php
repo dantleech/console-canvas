@@ -7,7 +7,7 @@ use DTL\ConsoleCanvas\Color;
 use DTL\ConsoleCanvas\ElementMetadata;
 use DTL\ConsoleCanvas\Element\Box;
 use DTL\ConsoleCanvas\Element\Circle;
-use DTL\ConsoleCanvas\Element\Layer;
+use DTL\ConsoleCanvas\Element\Container;
 use DTL\ConsoleCanvas\Element\Text;
 use DTL\ConsoleCanvas\Position;
 use DTL\ConsoleCanvas\Brush;
@@ -20,7 +20,7 @@ $box2 = new Box(size: 10);
 $box3 = new Box(size: 10);
 $text = new Text('Smile!');
 
-$container = new Layer(20, 30);
+$container = new Container(20, 30);
 $container->addAt(new Position(10, 0), $box1);
 $container->addAt(new Position(50, 0), $box2);
 $container->addAt(new Position(5, 5), $box3);

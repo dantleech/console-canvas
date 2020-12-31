@@ -6,6 +6,7 @@ use DTL\ConsoleCanvas\Brush;
 use DTL\ConsoleCanvas\Canvas;
 use DTL\ConsoleCanvas\Element;
 use DTL\ConsoleCanvas\Position;
+use DTL\ConsoleCanvas\Positions;
 
 final class Series implements Element
 {
@@ -23,7 +24,7 @@ final class Series implements Element
             $x += $this->step;
         }
 
-        (new Path($positions, density: $this->density))->render($brush, $canvas);
+        (new Path(new Positions($positions), density: $this->density))->render($brush, $canvas);
     }
 
     public function withValues(array $values): self

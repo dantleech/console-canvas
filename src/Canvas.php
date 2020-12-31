@@ -47,6 +47,7 @@ class Canvas
         }
 
         $currentColor = null;
+
         for ($y = 0; $y < $this->height; $y++) {
             $line = '';
 
@@ -81,6 +82,12 @@ class Canvas
 
     private function putCell(Position $position, Cell $cell): void
     {
+        if ($position->x() > $this->width) {
+            return;
+        }
+        if ($position->y() > $this->height) {
+            return;
+        }
         $this->grid[(int)round($position->y() * $this->scaleY)][(int)round($position->x() * $this->scaleX)] = $cell;
     }
 
