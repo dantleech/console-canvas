@@ -10,7 +10,7 @@ use DTL\ConsoleCanvas\Positions;
 
 final class Path implements Element
 {
-    public function __construct(private Positions $positions, private int $density = 10)
+    public function __construct(private Positions $positions, private int $density = 100)
     {
     }
 

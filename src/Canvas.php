@@ -47,17 +47,18 @@ class Canvas
         }
 
         $currentColor = null;
+        $grid = $this->grid;
 
         for ($y = 0; $y < $this->height; $y++) {
             $line = '';
 
             for ($x = 0; $x < $this->width; $x++) {
 
-                if (!isset($this->grid[$y][$x])) {
+                if (!isset($grid[$y][$x])) {
                     $line .= ' ';
                     continue;
                 }
-                $cell = $this->grid[$y][$x];
+                $cell = $grid[$y][$x];
 
                 if (null === $currentColor || $cell->color() != $currentColor) {
                     $currentColor = $cell->color();

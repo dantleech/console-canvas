@@ -12,7 +12,7 @@ class Line implements Element
     public function __construct(
         private Position $start,
         private Position $end,
-        private int $density = 10
+        private int $density = 100
     )
     {
     }

@@ -19,7 +19,7 @@ $canvas = new Canvas(width: 120, height: 25, scaleY: 0.5);
 
 $layer = new Container(100, 30);
 $wave = fn(int $offset, int $scale = 10) => array_map(
-    fn (float $radian) => sin($radian % 360) * $scale,
+    fn (float $radian) => (sin($radian % 360) * $scale) + 10,
     range($offset, $offset + 359)
 );
 $series1 = new Series(

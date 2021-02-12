@@ -27,11 +27,23 @@ final class Container implements Element
     public function render(Brush $brush, Canvas $canvas): void
     {
         foreach ($this->elements as $metadata) {
+            assert($metadata instanceof ElementMetadata);
             $childCanvas = new Canvas($this->width, $this->height);
+
+            $brush = $brush->withColor($metadata->color());
+            $brush = $brush->withStroke($metadata->stroke());
+
+            $fill = $brush->fill();
+            $fill = $fill->withColor($metadata->fillColor());
+            $fill = $fill->withStroke($metadata->fillStroke());
+
+            $brush = $brush->withFill($fill);
+
             $metadata->element()->render(
-                $brush->withColor($metadata->color())->withStroke($metadata->stroke()),
+                $brush,
                 $childCanvas
             );
+
             $canvas->mergeAt($metadata->position(), $childCanvas);
         }
     }
@@ -39,5 +51,12 @@ final class Container implements Element
     public function meta(Element $circle): ElementMetadata
     {
         return $this->elements[spl_object_hash($circle)];
+    }
+
+    private function applyToBrush(ElementMetadata $metadata, Brush $brush, bool $fill): Brush
+    {
+        return $brush
+            ->withColor($fill ? $metadata->fillColor() : $metadata->color())
+            ->withStroke($metadata->stroke());
     }
 }

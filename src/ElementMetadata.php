@@ -12,7 +12,9 @@ final class ElementMetadata
         private Element $element,
         private Position $position,
         private ?Stroke $stroke = null,
-        private ?Color $color = null
+        private ?Color $color = null,
+        private ?Color $fillColor = null,
+        private ?Stroke $fillStroke = null
     )
     {
     }
@@ -20,6 +22,16 @@ final class ElementMetadata
     public function color(): Color
     {
         return $this->color ?? Color::none();
+    }
+
+    public function fillColor(): Color
+    {
+        return $this->fillColor ?: Color::none();
+    }
+
+    public function fillStroke(): Stroke
+    {
+        return $this->fillStroke ?: new Block();
     }
 
     public function element(): Element
@@ -61,5 +73,15 @@ final class ElementMetadata
     public function setStroke(Stroke $stroke): void
     {
         $this->stroke = $stroke;
+    }
+
+    public function setFillStroke(Stroke $stroke): void
+    {
+        $this->fillStroke = $stroke;
+    }
+
+    public function setFillColor(Color $color): void
+    {
+        $this->fillColor = $color;
     }
 }
